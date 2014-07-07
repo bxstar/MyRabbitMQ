@@ -10,7 +10,7 @@ namespace MyRabbitMQ.Sender
     {
         static void Main(string[] args)
         {
-            var factory = new ConnectionFactory() { HostName = "115.182.89.51", Port = 5672, UserName = "yrs", Password = "carlos", VirtualHost = "yrs" };
+            var factory = new ConnectionFactory() { HostName = "115.182.89.51", Port = 5672, UserName = "test", Password = "test", VirtualHost = "test" };
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
