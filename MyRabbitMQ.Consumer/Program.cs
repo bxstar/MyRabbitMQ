@@ -11,15 +11,44 @@ namespace MyRabbitMQ.Consumer
     {
         static void Main(string[] args)
         {
-            var factory = new ConnectionFactory() { HostName = "115.182.89.51", Port = 5672, UserName = "test", Password = "test", VirtualHost = "test" };
+            //ProtoBuf测试代码
+            //var person = new Person
+            //{
+            //    id = 1,
+            //    name = "First",
+            //    email = "yurongsheng@163.com"
+            //};
+            //using (var file = System.IO.File.Create(@"D:\Person.bin"))
+            //{
+            //    ProtoBuf.Serializer.Serialize(file, person);
+            //}
+
+
+            //Person newPerson;
+            //using (var file = System.IO.File.OpenRead(@"D:\Person.bin"))
+            //{
+            //    newPerson = ProtoBuf.Serializer.Deserialize<Person>(file);
+            //}
+            //Console.WriteLine("id:{0},name:{1},email:{2}", newPerson.id, newPerson.name, newPerson.email);
+
+            string queueName = "360";
+
+            var factory = new ConnectionFactory() { HostName = "115.182.89.51", Port = 5672, UserName = "sem", Password = "shiqi2014", VirtualHost = "sem" };
+
+            //使用localhost在本地作为guest访问的写法
+            //var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare("hello", false, false, false, null);
+                    //删除队列
+                    //var result = channel.QueueDelete(queueName);
+
+                    //消费队列
+                    channel.QueueDeclare(queueName, false, false, false, null);
 
                     var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume("hello", true, consumer);
+                    channel.BasicConsume(queueName, true, consumer);
 
                     Console.WriteLine("[*] Waiting for message." + "To exit press CTRL+C");
 
