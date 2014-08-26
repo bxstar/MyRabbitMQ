@@ -31,7 +31,7 @@ namespace MyRabbitMQ.Consumer
             //}
             //Console.WriteLine("id:{0},name:{1},email:{2}", newPerson.id, newPerson.name, newPerson.email);
 
-            string queueName = "360";
+            string queueName = "taobao_spider_samesimilar_item";
 
             var factory = new ConnectionFactory() { HostName = "115.182.89.51", Port = 5672, UserName = "sem", Password = "shiqi2014", VirtualHost = "sem" };
 
@@ -48,7 +48,7 @@ namespace MyRabbitMQ.Consumer
                     channel.QueueDeclare(queueName, false, false, false, null);
 
                     var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume(queueName, true, consumer);
+                    string strConsumeResult = channel.BasicConsume(queueName, true, consumer);
 
                     Console.WriteLine("[*] Waiting for message." + "To exit press CTRL+C");
 
